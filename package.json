@@ -1,0 +1,18 @@
+{
+  "name": "projectmanamgment",
+  "version": "1.0.0",
+  "description": "project management application",
+  "keywords": [
+    "Project"
+  ],
+  "license": "ISC",
+  "author": "Aarushi Vyas",
+  "main": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  },
+  "scripts": {
+    "dev": "node index.js"
+  }
+}
