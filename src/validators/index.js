@@ -1,7 +1,7 @@
 //      middleware      - >           validate            ->       route
 
 import { body } from "express-validator";
-
+import { AvailableUserRole } from "../utils/constants.js";
 const userRegisterValidator = () => {
   return [
     body("email")
@@ -55,10 +55,36 @@ const userForgotPasswordValidator = () => {
 const userResetForgotPasswordValidator = () => {
   return [body("newPassword").notEmpty().withMessage("New password required")];
 };
+
+const createProjectValidator = () => {
+  return [
+    body("name").notEmpty().withMessage("Name is required"),
+    body("description").optional(),
+  ];
+};
+
+const addMembertoProjectValidator = () => {
+  return [
+    body("email")
+      .trim()
+      .notEmpty()
+      .withMessage("email is required")
+      .isEmail()
+      .withMessage("Email is not valid"),
+    body("role")
+      .notEmpty()
+      .withMessage("role required")
+      .isIn(AvailableUserRole)
+      .withMessage("Role is invalid"),
+  ];
+};
+
 export {
   userRegisterValidator,
   userLoginValidator,
   userChangeCurrentPasswordValidator,
   userForgotPasswordValidator,
   userResetForgotPasswordValidator,
+  createProjectValidator,
+  addMembertoProjectValidator,
 };

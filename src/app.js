@@ -1,13 +1,20 @@
 import express from "express";
 import cors from "cors";
+import { healthCheck } from "./controllers/healthcheck.controller.js";
+
+import authRouter from "./routes/auth.route.js";
+import projectRouter from "./routes/project.routes.js";
+import taskRouter from "./routes/project.routes.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 // basic configurations
+
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
-
+app.use("/api/v1/healthcheck", healthCheck);
 app.use(cookieParser());
 
 //cors  configurations
@@ -20,11 +27,7 @@ app.use(
   }),
 );
 
-//import router;
-import { healthCheck } from "./controllers/healthcheck.controller.js";
-app.use("/api/v1/healthcheck", healthCheck);
-
-import authRouter from "./routes/auth.route.js";
-import cookieParser from "cookie-parser";
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/projects", projectRouter);
+app.use("/api/v1/projects", taskRouter);
 export default app;
