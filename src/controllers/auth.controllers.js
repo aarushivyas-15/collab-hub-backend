@@ -120,9 +120,9 @@ const login = asynchandlers(async (req, res) => {
     throw new ApiError(404, "User does not exist");
   }
 
-  const isPasswodValid = await user.isPasswordCorrect(password);
+  const isPasswordValid = await user.isPasswordCorrect(password);
 
-  if (!isPasswodValid) {
+  if (!isPasswordValid) {
     throw new ApiError(400, "Invalid Credentials");
   }
 
@@ -203,7 +203,7 @@ const verifyEmail = asynchandlers(async (req, res) => {
     emailVerificationToken: hashedToken,
     emailVerificationExpiry: { $gt: Date.now() },
   });
-
+  console.log("User found:", user);
   if (!user) {
     throw new ApiError(400, "Token is invalid or expired");
   }
@@ -231,7 +231,7 @@ const resendEmailVerfication = asynchandlers(async (req, res) => {
   if (!user) {
     throw new ApiError(404, "User does not exist");
   }
-  if (!user.isEmailVerified) {
+  if (user.isEmailVerified) {
     throw new ApiError(409, "Email is already verified");
   }
 
