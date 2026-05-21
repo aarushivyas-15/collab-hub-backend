@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.route.js";
 import projectRouter from "./routes/project.routes.js";
 import taskRouter from "./routes/project.routes.js";
 import cookieParser from "cookie-parser";
+import noteRouter from "./routes/note.route.js";
 
 const app = express();
 
@@ -30,4 +31,6 @@ app.use(
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/projects", projectRouter);
 app.use("/api/v1/projects", taskRouter);
+
+app.use("/api/v1/notes", noteRouter);
 export default app;
